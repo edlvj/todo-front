@@ -34,5 +34,6 @@ body {
 
 .warning {
     display: -webkit-inline-box;
+    display: inline;
     color: red;
 }

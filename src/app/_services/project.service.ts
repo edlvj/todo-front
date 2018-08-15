@@ -10,6 +10,6 @@ export class ProjectService {
     constructor(private http: HttpClient) { }
  
     getAll() {
-        return this.http.get<Project[]>('/api/v1/projects');
+        return this.http.get<Project[]>(`${environment.apiUrl}/projects`);
     }
 }

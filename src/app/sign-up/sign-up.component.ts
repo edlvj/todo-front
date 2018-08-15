@@ -15,6 +15,7 @@ import { AuthenticationService } from '../_services';
 export class SignUpComponent implements OnInit {
     signupForm: FormGroup;
     submitted = false;
+    error = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -23,16 +24,15 @@ export class SignUpComponent implements OnInit {
         private authenticationService: AuthenticationService) {}
     
     ngOnInit() {
-        console.log(this.signupForm);
         this.signupForm = this.formBuilder.group({
             username: ['', Validators.compose([
                Validators.required, 
-               Validators.min(3),
-               Validators.max(50)
+               Validators.minLength(3),
+               Validators.maxLength(50)
             ])],
             password: ['', Validators.compose([
                Validators.required,
-               Validators.min(8),
+               Validators.minLength(8),
                Validators.pattern("^[a-zA-Z0-9]+$")
             ])],
             password_confirmation: ['', Validators.compose([
@@ -52,6 +52,17 @@ export class SignUpComponent implements OnInit {
         }
 
         console.log('suck my dick');
+
+        this.authenticationService.sign_up(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                  this.router.navigate(['/']);
+                },
+                error => {
+                    this.error = error.message;
+                });
+
     }    
 
 }  

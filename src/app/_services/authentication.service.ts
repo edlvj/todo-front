@@ -21,6 +21,7 @@ export class AuthenticationService {
     sign_in(username: string, password: string) {
         return this.http.post<any>(`${environment.apiUrl}/users/sign_in`, { username, password })
             .pipe(map(user => {
+                console.log(user);
                 if (user && user.token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
