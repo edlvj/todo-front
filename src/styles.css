@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #c2c2c2;
+}
+
+#header {
+    background-color: #e0e6f2;
+}
+
+#content {
+    height: 100vh;
+    background-color: white;
+}
+
+#header-title {
+    font-family: sans-serif;
+    font-weight: bold;
+    color: black;
+    padding: 4%;
+}
+
+.title {
+    color: black;
+}
+
+#form-content {
+    padding: 5%;
+}
+
+.pre-form {
+    padding-top: 2%;
+    padding-bottom: 5%;
+}
+
+.warning {
+    display: -webkit-inline-box;
+    color: red;
+}

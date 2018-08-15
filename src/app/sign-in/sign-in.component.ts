@@ -6,15 +6,13 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services';
 
 @Component({
-  selector: 'signin-form',
-  templateUrl: './signin-form.component.html',
-  styleUrls: ['./signin-form.component.sass']
+  selector: 'sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.sass']
 })
 
-export class SigninFormComponent implements OnInit {
+export class SignInComponent implements OnInit {
     signinForm: FormGroup;
-    loading = false;
-    submitted = false;
     returnUrl: string;
     error = '';
 
@@ -32,20 +30,16 @@ export class SigninFormComponent implements OnInit {
         });
 
         this.authenticationService.logout();
-
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     get f() { return this.signinForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
-
         if (this.signinForm.invalid) {
             return;
         }
 
-        this.loading = true;
         this.authenticationService.sign_in(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
@@ -54,7 +48,6 @@ export class SigninFormComponent implements OnInit {
                 },
                 error => {
                     this.error = error;
-                    this.loading = false;
                 });
     }
 }

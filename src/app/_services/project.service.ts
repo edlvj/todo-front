@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
  
-import { Project } from '../_models/index';
+import { Project } from '../_models';
+
 import { environment } from '../../environments/environment';
  
-@Injectable()
-export class UserService {
+@Injectable({ providedIn: 'root' })
+export class ProjectService {
     constructor(private http: HttpClient) { }
  
     getAll() {

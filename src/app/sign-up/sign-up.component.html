@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+      <div class="col-4 offset-sm-4" id="form-content">
+        <div id="pre-form">
+          <h3 class="text-left title"> Sign Up</h3>
+        </div>
+        <div class="warning">
+            <div *ngIf="f.username.dirty || submitted" class="invalid-feedback">
+              <div *ngIf="f.username.errors">
+                <div *ngIf="f.username.errors.required">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> The field is required.
+                </div>
+              </div>
+
+              <div *ngIf="f.password_confirmation.errors">
+                <div *ngIf="f.password_confirmation.errors.MutchPassword">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> Password and Confirm password fields doesn’t match.
+                </div>
+              </div>
+
+              
+            </div>
+        </div>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" >
+            <div class="form-group">
+              <input type="text" formControlName="username" class="form-control" placeholder="User name" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+            </div>
+
+            <div class="form-group">
+              <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'has-error': submitted && f.password.errors }" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <input id="password_confirmation" type="password" formControlName="password_confirmation" class="form-control" placeholder="Confirm password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+        <p><small>Already a member? <a routerLink="/sign-in">Sign In</a></small></p>  
+        </div>
+    </div>
+</div>
