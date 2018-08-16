@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { PasswordValidation } from '../_helpers';
-import { AuthenticationService } from '../_services';
+import { PasswordValidation } from '../../_helpers';
+import { AuthenticationService } from '../../_services';
 
 @Component({
   selector: 'sign-up',
@@ -50,8 +50,6 @@ export class SignUpComponent implements OnInit {
         if (this.signupForm.invalid) {
             return;
         }
-
-        console.log('suck my dick');
 
         this.authenticationService.sign_up(this.f.username.value, this.f.password.value)
             .pipe(first())

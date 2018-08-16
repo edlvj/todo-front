@@ -1,0 +1,33 @@
+<div *ngIf="projects.data" id="accordion" role="tablist">
+  <div *ngFor="let project of projects.data" [class.card]="!project.editable">
+    <div *ngIf="!project.editable" class="card-header collapsed" role="tab" [attr.data-target]="'#project-'+project.id" data-toggle="collapse">
+      <div class="row">
+        <div class="col-10"><span>{{project.attributes.title}}</span></div>
+        <div class="col-2">
+          <div class="project-toolbar">
+            <fa [name]="'pencil'" (click)="onEdit(project); skipCollapse($event)" [size]=1></fa>
+            <fa [name]="'trash'" (click)="openModal(deleteProjectTemplate); skipCollapse($event)" [size]=1></fa>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #deleteProjectTemplate>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete project</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete "{{project.attributes.title}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDelete(project); modalRef.hide()" class="btn btn-primary">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+      </div>
+    </ng-template>
+
+  </div>
+</div>    

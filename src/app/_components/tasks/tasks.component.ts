@@ -2,6 +2,5 @@ import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } fro
 
 export class TasksComponent implements OnInit {
   ngOnInit() {
-
   }
 }
