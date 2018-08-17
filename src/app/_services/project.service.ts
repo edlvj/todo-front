@@ -13,13 +13,23 @@ export class ProjectService {
     }
 
     create(title) {
-    	return this.http.post<Project[]>(`${environment.apiUrl}/projects`, { project: { title } })
-    	      .pipe(map(project => {
+        return this.http.post<Project[]>(`${environment.apiUrl}/projects`, { project: { title } })
+            .pipe(map(project => {
+                return project;
+            }));
+    }
+
+    update(id, project) {
+        return this.http.patch<Project[]>(`${environment.apiUrl}api/v1/projects/${id}`, project)
+            .pipe(map(project => {
                 return project;
             }));
     }
 
     delete(id) {
-    	return 'delete';
+        return this.http.delete<Project[]>(`${environment.apiUrl}/projects/${id}`)
+            .pipe(map(project => {
+                return project;
+            }));
     }
 }

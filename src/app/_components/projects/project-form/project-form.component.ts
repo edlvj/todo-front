@@ -37,9 +37,8 @@ export class ProjectFormComponent implements OnInit {
         this.projectService.create(this.f.title.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    console.log(data);
-                
+                project => {
+                    //this._dataStore.next(this._dataStore.getValue().push(project));
                     this.ngFlashMessageService.showFlashMessage({
 							          messages: ["<strong>Well done!</strong> You've successfully done all tasks."], 
 							          dismissible: true, 

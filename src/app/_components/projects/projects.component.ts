@@ -6,6 +6,7 @@ import { ProjectService } from '../../_services';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { DataStore } from '../../_helpers'
 
 @Component({
   selector: 'projects',
@@ -17,14 +18,24 @@ export class ProjectsComponent implements OnInit {
     projects: Project[] = [];
     modalRef: BsModalRef;
 
-    constructor(private projectService: ProjectService,
-      private modalService: BsModalService) {}
+    constructor(
+      private projectService: ProjectService,
+      private modalService: BsModalService,
+      private dataStore: DataStore
+      ) {}
 
     ngOnInit() {
-        this.projectService.getAll().pipe(first()).subscribe(projects => { 
-            console.log(projects);
-            this.projects = projects; 
+        this.projectService.getAll().pipe(first()).subscribe(projects => {
+            console.log(this.dataStore);
+            this.dataStore.store.next(projects);
         });
+
+        this.dataStore.store.subscribe(projects => {
+          this.projects = projects;
+        });
+    }
+
+    onDelete(project: Project) {
     }
 
     onEdit(project: Project){
