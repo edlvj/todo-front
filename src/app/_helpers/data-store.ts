@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 
 export class DataStore {
-  store = new Subject<any>();
-
-  // updateData(data: any) {
-  //   this._dataStore.next(data);
-  // }
+  store = new BehaviorSubject<any>([]);
 }

@@ -19,8 +19,8 @@ export class ProjectService {
             }));
     }
 
-    update(id, project) {
-        return this.http.patch<Project[]>(`${environment.apiUrl}api/v1/projects/${id}`, project)
+    update(id, title) {
+        return this.http.patch<Project[]>(`${environment.apiUrl}/projects/${id}`, {project: { title }})
             .pipe(map(project => {
                 return project;
             }));

@@ -1,7 +1,7 @@
 <h5>Projects</h5>
 <form class="form-group" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <input type="text" (focus)="formButtons=true" formControlName="title" [(ngModel)]="title" placeholder='Enter project name' required class="form-control">
+    <input type="text" (focus)="formButtons=true" formControlName="title" placeholder='Enter project name' required class="form-control">
   </div>
 
   <div *ngIf="formButtons">

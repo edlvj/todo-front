@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { NgFlashMessageService } from 'ng-flash-messages';
 import { ProjectService } from '../../../_services';
+import { DataStore } from '../../../_helpers'
 
 @Component({
   selector: 'project-form',
@@ -19,7 +20,9 @@ export class ProjectFormComponent implements OnInit {
     constructor(
       private formBuilder: FormBuilder,
       private ngFlashMessageService: NgFlashMessageService,
-      private projectService: ProjectService) { }
+      private projectService: ProjectService,
+      private dataStore: DataStore
+    ) { }
 
     get f() { return this.projectForm.controls; }
     
@@ -27,6 +30,13 @@ export class ProjectFormComponent implements OnInit {
         this.projectForm = this.formBuilder.group({
             title: ['', Validators.required]
         });
+    }
+
+    addToStore(project) {
+        let allProjects = this.dataStore.store.getValue();
+
+        allProjects.data.push(project.data);
+        this.dataStore.store.next(allProjects);
     }
 
     onSubmit() {
@@ -38,23 +48,24 @@ export class ProjectFormComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 project => {
-                    //this._dataStore.next(this._dataStore.getValue().push(project));
+                    this.addToStore(project);
+
                     this.ngFlashMessageService.showFlashMessage({
-							          messages: ["<strong>Well done!</strong> You've successfully done all tasks."], 
-							          dismissible: true, 
-							          timeout: false,
-							          type: 'success'
-							      });
+                        messages: ["<strong>Well done!</strong> You've successfully done all tasks."], 
+                        dismissible: true, 
+                        timeout: false,
+                        type: 'success'
+                    });
                 },
-                error => {
-                	  console.log(error);
-                	  
-                	  this.ngFlashMessageService.showFlashMessage({
-							          messages: [error.message], 
-							          dismissible: true, 
-							          timeout: false,
-							          type: 'danger'
-							      });
+                errors => {
+                    console.log(errors);
+
+                this.ngFlashMessageService.showFlashMessage({
+                    messages: [errors[0]], 
+                    dismissible: true, 
+                    timeout: false,
+                    type: 'danger'
+                });
                 	
         });
     }

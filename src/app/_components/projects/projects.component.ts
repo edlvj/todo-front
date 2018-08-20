@@ -22,24 +22,54 @@ export class ProjectsComponent implements OnInit {
       private projectService: ProjectService,
       private modalService: BsModalService,
       private dataStore: DataStore
-      ) {}
+    ) {}
 
     ngOnInit() {
         this.projectService.getAll().pipe(first()).subscribe(projects => {
-            console.log(this.dataStore);
             this.dataStore.store.next(projects);
         });
 
         this.dataStore.store.subscribe(projects => {
+          console.log("updated", projects);
           this.projects = projects;
         });
     }
 
+    deleteFromStore(project) {
+      let allProjects = this.dataStore.store.getValue();
+
+      let filteredProjects = allProjects.data.filter(function(p) {
+        return p.id != project.data.id;
+      });
+
+      allProjects.data = filteredProjects;
+      this.dataStore.store.next(allProjects); 
+    }
+
     onDelete(project: Project) {
+      this.projectService.delete(project.id).pipe(first()).subscribe(p => {
+        this.deleteFromStore(p);
+      });
     }
 
     onEdit(project: Project){
         project.editable = true;
+    }
+
+    updateStore(project: Project) {
+      let allProjects = this.dataStore.store.getValue();
+
+      let index = allProjects.data.indexOf(project);
+      allProjects[index] = project;
+
+      this.dataStore.store.next(allProjects);
+    }
+
+    onEditSubmit(project: Project) {
+      this.projectService.update(project.id, project.attributes.title).pipe(first()).subscribe(p => {
+        this.updateStore(p);
+        project.editable = false;
+      });
     }
 
     closeEditForm(project: Project){

@@ -1,1 +1,9 @@
-<h1>Tasks</h1>
+<ul class="list-group" *ngIf="tasks.data">
+  <div *ngFor="let task of tasks.data">
+    <task-item [task]=task></task-item>
+  </div>
+</ul>  
+
+
+
+<task-create-form (create)="create($event)"></task-create-form>

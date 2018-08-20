@@ -1,16 +1,20 @@
 <div *ngIf="projects.data" id="accordion" role="tablist">
   <div *ngFor="let project of projects.data" [class.card]="!project.editable">
-    <div *ngIf="!project.editable" class="card-header collapsed" role="tab" [attr.data-target]="'#project-'+project.id" data-toggle="collapse">
-      <div class="row">
-        <div class="col-10"><span>{{project.attributes.title}}</span></div>
-        <div class="col-2">
-          <div class="project-toolbar">
-            <fa [name]="'pencil'" (click)="onEdit(project); skipCollapse($event)" [size]=1></fa>
-            <fa [name]="'trash'" (click)="openModal(deleteProjectTemplate); skipCollapse($event)" [size]=1></fa>
+    <accordion>
+
+    <accordion-group *ngIf="!project.editable">
+        <div accordion-heading>
+          <div class="pull-left float-left">{{project.attributes.title}}</div>
+
+          <div class="project-toolbar float-right pull-right">
+              <fa [name]="'pencil'" (click)="onEdit(project);" [size]=1></fa>
+              <fa [name]="'trash'" (click)="openModal(deleteProjectTemplate);" [size]=1></fa>
           </div>
         </div>
-      </div>
-    </div>
+        <div class="card-body">
+          <tasks [project]="project"></tasks>
+        </div>
+    </accordion-group>
 
     <ng-template #deleteProjectTemplate>
       <div class="modal-header">
@@ -28,5 +32,11 @@
       </div>
     </ng-template>
 
+    <div *ngIf="project.editable">
+      <project-edit-form (close)="closeEditForm($event)" (edit)="onEditSubmit($event)" [project]="project"></project-edit-form>
+    </div>
+
+
+    </accordion>
   </div>
 </div>    

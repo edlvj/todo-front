@@ -36,7 +36,8 @@
     "rxjs-compat": "6.0.0-beta.1",
     "typescript": "~2.7.2",
     "zone.js": "^0.8.26",
-    "ngx-bootstrap": "^2.0.1"
+    "ngx-bootstrap": "^2.0.1",
+    "ng2-accordion": "^0.0.15"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.3",
