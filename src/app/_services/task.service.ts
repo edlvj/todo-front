@@ -4,16 +4,29 @@ import { map } from 'rxjs/operators';
 import { Task, Project } from '../_models';
 import { environment } from '../../environments/environment';
 
-
 @Injectable({ providedIn: 'root' })
 
 export class TaskService {
-	constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   create(project: Project, title: String) {
-    return this.http.post<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks`, { task: { title } })
-        .pipe(map(task => {
-            return task;
-        }));
+      return this.http.post<Task[any]>(`${environment.apiUrl}/projects/${project.id}/tasks`, {task: { title } })
+          .pipe(map(task => {
+              return task;
+          }));
+  }
+
+  update(project: Project, task: Task) {
+      return this.http.patch<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}`, {task: { title: task.attributes.title }})
+          .pipe(map(project => {
+              return project;
+          }));
+  }
+
+  delete(project: Project, task: Task) {
+      return this.http.delete<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}`)
+          .pipe(map(task => {
+              return task;
+          }));
   }
 }	

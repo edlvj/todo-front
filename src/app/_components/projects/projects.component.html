@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="card-body">
-          <tasks [project]="project"></tasks>
+          <tasks [project]="project" [included]="projects.included"></tasks>
         </div>
     </accordion-group>
 
@@ -33,9 +33,8 @@
     </ng-template>
 
     <div *ngIf="project.editable">
-      <project-edit-form (close)="closeEditForm($event)" (edit)="onEditSubmit($event)" [project]="project"></project-edit-form>
+      <project-edit-form (edit)="onEditSubmit($event)" [project]="project"></project-edit-form>
     </div>
-
 
     </accordion>
   </div>

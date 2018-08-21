@@ -8,8 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class TaskCreateFormComponent {
-	taskForm: FormGroup;
-	formButtons: Boolean = false;
+  taskForm: FormGroup;
+  formButtons: Boolean = false;
 
   @Output() create: EventEmitter<string> = new EventEmitter();
 
@@ -20,8 +20,7 @@ export class TaskCreateFormComponent {
   }
 
   onSubmit(){
-  	console.log("create")
-
   	this.create.emit(this.taskForm.controls.title.value);
+    this.taskForm.reset();
   }
 }  

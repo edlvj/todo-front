@@ -12,6 +12,12 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'jquery/dist/jquery.min.js';
+import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css';
+import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js';
+import 'bootstrap-timepicker/css/bootstrap-timepicker.min.css';
+import 'bootstrap-timepicker/js/bootstrap-timepicker.js';
+
+import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
@@ -27,6 +33,7 @@ import { ProjectEditFormComponent } from './_components/projects/project-edit-fo
 import { TasksComponent } from './_components/tasks';
 import { TaskCreateFormComponent } from './_components/tasks/task-create-form';
 import { TaskItemComponent } from './_components/tasks/task-item';
+import { TaskEditFormComponent } from './_components/tasks/task-edit-form';
 
 @NgModule({
   imports: [
@@ -38,7 +45,8 @@ import { TaskItemComponent } from './_components/tasks/task-item';
     Angular2FontawesomeModule,
     NgFlashMessagesModule.forRoot(),
     ModalModule.forRoot(),
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    NKDatetimeModule
   ],
   declarations: [
     AppComponent,
@@ -50,7 +58,8 @@ import { TaskItemComponent } from './_components/tasks/task-item';
     ProjectEditFormComponent,
     TasksComponent,
     TaskCreateFormComponent,
-    TaskItemComponent
+    TaskItemComponent,
+    TaskEditFormComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

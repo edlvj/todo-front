@@ -1,1 +1,53 @@
-{{ task.id }}
+
+<li *ngIf="!task.editable" class="list-group-item justify-content-between">
+  <div class="row">
+    <div class="col-10">
+      <div class="float-left task-toolbar task-toolbar-left">
+        <fa [name]="'caret-up'"  [size]=1></fa>
+        <fa [name]="'caret-down'" [size]=1></fa>
+      </div>
+      <input type="checkbox" id="task-{{task.id}}" />
+      <span>{{ task.attributes.title }}</span>
+    </div>
+    <div class="col-2">
+      <div class="float-right task-toolbar">
+        <fa [name]="'comment'" [size]=1 ></fa>
+        <fa [name]="'clock-o'" [size]=1 (click)="openModal(setDeadlineTemplate)"></fa>
+        <fa [name]="'pencil'" [size]=1 (click)="onEdit(task)"></fa>
+        <fa [name]="'trash'" [size]=1 (click)="openModal(deleteTemplate)"></fa>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #setDeadlineTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Deadline</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseDeadlineModal(); modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+      <div class="modal-body">
+      </div>
+    </div> 
+    <div class="modal-footer">
+      <button type="button" (click)="onUpdateDeadline.emit(task); modalRef.hide()" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="onCloseDeadlineModal(); modalRef.hide()">Cancel</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete task</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Do you really want to delete "{{task.attributes.title}}"?
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="onDelete.emit(task); modalRef.hide()" class="btn btn-primary">Delete</button>
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+    </div>
+  </ng-template>
+</li>

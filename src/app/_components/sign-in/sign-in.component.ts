@@ -17,16 +17,17 @@ export class SignInComponent implements OnInit {
     error = '';
 
     constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService) {}
+      private formBuilder: FormBuilder,
+      private route: ActivatedRoute,
+      private router: Router,
+      private authenticationService: AuthenticationService
+    ) {}
 
 
     ngOnInit() {
         this.signinForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+          username: ['', Validators.required],
+          password: ['', Validators.required]
         });
 
         this.authenticationService.logout();
@@ -49,5 +50,7 @@ export class SignInComponent implements OnInit {
                 error => {
                     this.error = error;
                 });
+
+        this.authenticationService.userLogged.next(true);    
     }
 }

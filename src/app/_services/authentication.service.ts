@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+    userLogged = new BehaviorSubject<Boolean>(this.user_logged());
+
     constructor(private http: HttpClient) {}
 
     sign_up(username: string, password: string) {
@@ -31,5 +34,9 @@ export class AuthenticationService {
 
     logout() {
         localStorage.removeItem('currentUser');
+    }
+
+    user_logged() {
+        return localStorage.getItem('currentUser') ? true : false;
     }
 }

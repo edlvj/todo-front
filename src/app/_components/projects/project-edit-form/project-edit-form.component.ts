@@ -9,10 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class ProjectEditFormComponent implements OnInit {
-	projectEditForm: FormGroup;
+  projectEditForm: FormGroup;
   @Input() project: Project;
   @Output() edit: EventEmitter<Project> = new EventEmitter();
-  @Output() close: EventEmitter<Project> = new EventEmitter();
   temporaryProjectTitle: String;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -30,7 +29,6 @@ export class ProjectEditFormComponent implements OnInit {
   }
 
   onCloseForm(){
-  	//this.projectEditForm.controls['title'].setValue(this.temporaryProjectTitle);
-    this.close.emit(this.project);
+    this.project.editable = false;
   }
 }

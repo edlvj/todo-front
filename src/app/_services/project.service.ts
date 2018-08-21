@@ -13,7 +13,7 @@ export class ProjectService {
     }
 
     create(title) {
-        return this.http.post<Project[]>(`${environment.apiUrl}/projects`, { project: { title } })
+        return this.http.post<Project[]>(`${environment.apiUrl}/projects`, {project: { title }})
             .pipe(map(project => {
                 return project;
             }));

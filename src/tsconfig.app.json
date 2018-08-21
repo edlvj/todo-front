@@ -15,5 +15,11 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "../node_modules/ng2-datetime/ng2-datetime.ts",
+    "../node_modules/ng2-datetime/src/ng2-datetime/ng2-datetime.module.ts",
+    "../node_modules/ng2-datetime/src/ng2-datetime/ng2-datetime.ts"
   ]
 }

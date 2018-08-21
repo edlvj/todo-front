@@ -7,8 +7,8 @@
       <h3 class="text-center" id="header-title">Simple ToDo List</h3>
     </div>
     <div class="col-2">
-      <div class="text-center" style="padding: 15%;">
-        <fa [name]="'sign-out fa-2x'" [fw]=true id="logout"></fa>
+      <div class="text-center" style="padding: 15%;" *ngIf="logged">
+        <fa [name]="'sign-out fa-2x'"  [fw]=true id="logout" (click)="logOut();"></fa>
       </div>
     </div>
   </div>

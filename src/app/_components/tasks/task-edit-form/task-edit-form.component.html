@@ -1,0 +1,9 @@
+<form id="task-edit-form" [formGroup]="taskEditForm" (ngSubmit)="onSubmit();">
+  <div class="form-group">
+    <input type="text" class="form-control form-control-lg" formControlName="title" placeholder="Enter task name" required autofocus>
+  </div>
+  <div class="row">
+    <div class="col-2"><button class="btn btn-primary btn-md btn-block" type="submit" [disabled]="taskEditForm.invalid">Save</button></div>
+    <div class="col-2"><a (click)="onCloseForm()" class="btn btn-secondary btn-md btn-block">Cancel</a></div>
+  </div>
+</form>
