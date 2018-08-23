@@ -3,4 +3,5 @@ export class Task {
   title: string;
   done: boolean;
   priority: number;
+  deadline: Date;
 }

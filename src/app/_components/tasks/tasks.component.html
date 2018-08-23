@@ -2,9 +2,11 @@
   <div *ngFor="let task of tasks">
     <task-item 
       [task]=task
-      (onDelete)="delete($event)">
+      (onComplete)="updateStatus($event)"
+      (onDelete)="delete($event)"
+      (onUpdateDeadline)="updateDeadline($event)">
     </task-item>
-    <task-edit-form *ngIf="task.editable" [task]="task" (edit)="onEditSubmit($event)"></task-edit-form>
+    <task-edit-form *ngIf="task.editable" [task]="task" (edit)="updateTitle($event)"></task-edit-form>
   </div>
 </ul>  
 

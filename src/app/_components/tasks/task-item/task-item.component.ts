@@ -12,8 +12,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 export class TaskItemComponent {
   @Input() task: Task;
   @Output() onDelete: EventEmitter<Task> = new EventEmitter();
+  @Output() onUpdateDeadline: EventEmitter<Task> = new EventEmitter();
+  @Output() onComplete: EventEmitter<Task> = new EventEmitter();
 
   modalRef: BsModalRef;
+  temporaryDate: Date;
 
   constructor(private modalService: BsModalService) {}
 

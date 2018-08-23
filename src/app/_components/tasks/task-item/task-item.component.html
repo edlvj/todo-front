@@ -6,8 +6,9 @@
         <fa [name]="'caret-up'"  [size]=1></fa>
         <fa [name]="'caret-down'" [size]=1></fa>
       </div>
-      <input type="checkbox" id="task-{{task.id}}" />
+      <input type="checkbox" id="task-{{task.id}}" #completeCheckbox [checked]="task.attributes.done" (change)="onComplete(completeCheckbox.checked)" />
       <span>{{ task.attributes.title }}</span>
+      <span *ngIf="task.attributes.deadline" > {{ task.attributes.deadline | date :  'dd/MM/y hh:mm' }}</span>
     </div>
     <div class="col-2">
       <div class="float-right task-toolbar">
@@ -26,12 +27,18 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-      <div class="modal-body">
-      </div>
-    </div> 
+    <div class="modal-body">
+        <datetime [timepicker]="{
+        showMeridian: false,
+        showSeconds: false,
+        minuteStep: 60,
+        icon: 'fa fa-clock-o',
+        icons: { up: 'fa fa-chevron-up', down: 'fa fa-chevron-down' }
+        }" [datepicker]="{ icon: 'fa fa-calendar', autoclose: 'true' }" [(ngModel)]="task.attributes.deadline"></datetime>
+    </div>
     <div class="modal-footer">
-      <button type="button" (click)="onUpdateDeadline.emit(task); modalRef.hide()" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-secondary" (click)="onCloseDeadlineModal(); modalRef.hide()">Cancel</button>
+      <button type="button" (click)="onUpdateDeadline.emit(task);modalRef.hide()" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
     </div>
   </ng-template>
 

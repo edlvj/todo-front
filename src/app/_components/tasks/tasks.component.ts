@@ -59,11 +59,32 @@ export class TasksComponent implements OnInit {
       });
   }
 
-  onEditSubmit(task: Task) {
-      this.taskService.update(this.project, task).pipe(first()).subscribe(t => {
+  updateTitle(task: Task) {
+      this.taskService.update(this.project, task, { title: task.attributes.title }).pipe(first()).subscribe(t => {
           let index = this.tasks.indexOf(task);
           this.tasks[index].attributes.title = task.attributes.title;  
           task.editable = false;
       });
   }
+
+  updateDeadline(task: Task) {
+      this.taskService.update(this.project, task, { deadline: task.attributes.deadline}).pipe(first()).subscribe(t => {
+          let index = this.tasks.indexOf(task);
+          this.tasks[index].attributes.deadline = task.attributes.deadline;
+      });
+  }
+
+  updateStatus(task: Task) {
+      console.log('blacknote');
+      // this.taskService.update(this.project, task, { done: task.attributes.done }).pipe(first()).subscribe(t => {
+      //     let index = this.tasks.indexOf(task);
+      //     this.tasks[index].attributes.done = task.attributes.done;
+      // });
+  }
+
+  private commentsCount(task: Task){}
+
+  private onCompleteMessage(){ }
+  
+  private sortTasks(task: Task, index: number, action: String){
 }
