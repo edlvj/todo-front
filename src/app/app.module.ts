@@ -34,6 +34,7 @@ import { TasksComponent } from './_components/tasks';
 import { TaskCreateFormComponent } from './_components/tasks/task-create-form';
 import { TaskItemComponent } from './_components/tasks/task-item';
 import { TaskEditFormComponent } from './_components/tasks/task-edit-form';
+import { CommentsComponent } from './_components/comments';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { TaskEditFormComponent } from './_components/tasks/task-edit-form';
     TasksComponent,
     TaskCreateFormComponent,
     TaskItemComponent,
-    TaskEditFormComponent
+    TaskEditFormComponent,
+    CommentsComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

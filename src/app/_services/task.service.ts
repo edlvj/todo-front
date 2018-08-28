@@ -17,9 +17,9 @@ export class TaskService {
   }
 
   update(project: Project, task: Task, params) {
-      return this.http.patch<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}`, {task: params })
-          .pipe(map(project => {
-              return project;
+      return this.http.patch<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}`, { task: params })
+          .pipe(map(task => {
+              return task;
           }));
   }
 

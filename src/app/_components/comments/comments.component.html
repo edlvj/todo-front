@@ -1,1 +1,30 @@
-<h1>Comments</h1>
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add comment</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form id="add-comment-form" (ngSubmit)="onSubmit(fileInput, commentForm)" #commentForm="ngForm">
+  <div class="modal-body">
+    <div class="form-group">
+      <textarea class="form-control form-control-lg" name='comment' [(ngModel)]="message" minlength="10" placeholder="Enter Your Comment" required autofocus></textarea>
+      <div id="upload-button" class="text-muted">
+        <span>{{ uploadFile }}</span>
+        <i class="fa fa-paperclip btn-file" aria-hidden="true">
+          <input id="paperclip-attachment" name="attachment" (change)='changeUploadName(fileInput)' #fileInput type='file'>
+        </i>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-5">
+      <button type="button" class="btn btn-secondary float-right" (click)="modalRef.hide()">Cancel</button>
+    <button type="submit" class="btn btn-primary float-right" [disabled]="commentForm.form.invalid">Save</button>
+    </div>
+  </div>
+</form>
+<hr>
+<div class="modal-body">
+  <div class="comments">
+  </div>
+</div>

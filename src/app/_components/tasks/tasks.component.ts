@@ -75,16 +75,31 @@ export class TasksComponent implements OnInit {
   }
 
   updateStatus(task: Task) {
-      console.log('blacknote');
-      // this.taskService.update(this.project, task, { done: task.attributes.done }).pipe(first()).subscribe(t => {
-      //     let index = this.tasks.indexOf(task);
-      //     this.tasks[index].attributes.done = task.attributes.done;
-      // });
+      this.taskService.update(this.project, task, { done: task.attributes.done }).pipe(first()).subscribe(t => {
+          let index = this.tasks.indexOf(task);
+          this.tasks[index].attributes.done = task.attributes.done;
+      });
+  }
+
+  move(options: object) {
+    console.log(options['index']);
+    let temp = this.tasks[options['new_index']];
+    if(typeof temp ==='undefined') {
+      return;
+    };
+
+    this.tasks[options['new_index']] = this.tasks[options['index']];
+    this.tasks[options['index']] = temp;
+
+    this.taskService.update(this.project, options['task'], { priority: options['new_index'], move_type: options['type'] }).pipe(first()).subscribe(t => {
+        console.log(t);
+       // this.tasks[options['new_index']].attributes.priority = t.attributes.priority;
+    });
   }
 
   private commentsCount(task: Task){}
 
   private onCompleteMessage(){ }
   
-  private sortTasks(task: Task, index: number, action: String){
+  private sortTasks(task: Task, index: number, action: String){ }
 }

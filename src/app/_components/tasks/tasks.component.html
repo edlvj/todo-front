@@ -1,8 +1,10 @@
 <ul class="list-group" *ngIf="tasks">
-  <div *ngFor="let task of tasks">
+  <div *ngFor="let task of tasks; let i=index">
     <task-item 
       [task]=task
+      [index]=i
       (onComplete)="updateStatus($event)"
+      (onMove)="move($event)"
       (onDelete)="delete($event)"
       (onUpdateDeadline)="updateDeadline($event)">
     </task-item>

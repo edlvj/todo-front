@@ -11,9 +11,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export class TaskItemComponent {
   @Input() task: Task;
+  @Input() index;
   @Output() onDelete: EventEmitter<Task> = new EventEmitter();
   @Output() onUpdateDeadline: EventEmitter<Task> = new EventEmitter();
   @Output() onComplete: EventEmitter<Task> = new EventEmitter();
+  @Output() onMove: EventEmitter<any> = new EventEmitter();
 
   modalRef: BsModalRef;
   temporaryDate: Date;
@@ -21,10 +23,23 @@ export class TaskItemComponent {
   constructor(private modalService: BsModalService) {}
 
   openModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template);
   }
 
-  onEdit(task: Task){
-      task.editable = true;
+  onEdit(task: Task){  
+    task.editable = true;
+  }
+
+  moveUp(task: Task, index){
+    this.onMove.emit({task: task, index: index, new_index: index - 1, type: 'up'});
+  }
+
+  moveDown(task: Task, index){
+    this.onMove.emit({task: task, index: index, new_index: index + 1, type: 'down'});
+  }
+
+  completeTask(completed){
+    this.task.attributes.done = completed;
+    this.onComplete.emit(this.task);
   }
 }
