@@ -22,9 +22,7 @@ export class TasksComponent implements OnInit {
     this.tasks = this.filterRelations(relationships, this.included);
   }
 
-  constructor(
-    private taskService: TaskService
-  ) {}
+  constructor(private taskService: TaskService) {}
 
   filterRelations(relations, included) {
       var filtered = [];

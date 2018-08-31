@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
-import { Task } from '../../../_models';
+import { Task, Project } from '../../../_models';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -10,6 +10,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 
 export class TaskItemComponent {
+  @Input() project: Project;
   @Input() task: Task;
   @Input() index;
   @Output() onDelete: EventEmitter<Task> = new EventEmitter();
@@ -17,10 +18,14 @@ export class TaskItemComponent {
   @Output() onComplete: EventEmitter<Task> = new EventEmitter();
   @Output() onMove: EventEmitter<any> = new EventEmitter();
 
+  
   modalRef: BsModalRef;
   temporaryDate: Date;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(private modalService: BsModalService) {
+    //calculate number of comments
+    //numberOfComments: number = 0;
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

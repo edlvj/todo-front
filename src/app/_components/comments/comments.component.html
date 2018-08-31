@@ -7,11 +7,11 @@
 <form id="add-comment-form" (ngSubmit)="onSubmit(fileInput, commentForm)" #commentForm="ngForm">
   <div class="modal-body">
     <div class="form-group">
-      <textarea class="form-control form-control-lg" name='comment' [(ngModel)]="message" minlength="10" placeholder="Enter Your Comment" required autofocus></textarea>
+      <textarea class="form-control form-control-lg" name='title' [(ngModel)]="text" minlength="10" maxlength="256" placeholder="Enter Your Comment" required autofocus></textarea>
       <div id="upload-button" class="text-muted">
         <span>{{ uploadFile }}</span>
         <i class="fa fa-paperclip btn-file" aria-hidden="true">
-          <input id="paperclip-attachment" name="attachment" (change)='changeUploadName(fileInput)' #fileInput type='file'>
+          <input id="paperclip-attachment" name="attachment" #fileInput type='file' accept="image/jpg, image/png">
         </i>
       </div>
     </div>
@@ -25,6 +25,9 @@
 </form>
 <hr>
 <div class="modal-body">
-  <div class="comments">
+  <div class="comments" *ngIf="comments && comments.data">
+    <div *ngFor="let comment of comments.data" class="comment-item">
+      <comment-item [comment]="comment" ></comment-item>
+    </div>
   </div>
 </div>

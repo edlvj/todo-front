@@ -1,4 +1,6 @@
 export class Project {
   id: number;
-  title: string;  
+  editable: Boolean;
+  relationships: any;
+  attributes: any;
 }  

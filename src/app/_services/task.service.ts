@@ -10,7 +10,7 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   create(project: Project, title: String) {
-      return this.http.post<Task[any]>(`${environment.apiUrl}/projects/${project.id}/tasks`, {task: { title } })
+      return this.http.post<Task[]>(`${environment.apiUrl}/projects/${project.id}/tasks`, {task: { title } })
           .pipe(map(task => {
               return task;
           }));

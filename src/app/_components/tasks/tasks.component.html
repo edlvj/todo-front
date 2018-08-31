@@ -1,6 +1,7 @@
 <ul class="list-group" *ngIf="tasks">
   <div *ngFor="let task of tasks; let i=index">
     <task-item 
+      [project]=project
       [task]=task
       [index]=i
       (onComplete)="updateStatus($event)"
