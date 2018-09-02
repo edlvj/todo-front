@@ -14,6 +14,7 @@ import { AuthenticationService } from '../../_services';
 export class SignInComponent implements OnInit {
     signinForm: FormGroup;
     returnUrl: string;
+    submitted = false;
     error = '';
 
     constructor(
@@ -23,23 +24,25 @@ export class SignInComponent implements OnInit {
       private authenticationService: AuthenticationService
     ) {}
 
-
     ngOnInit() {
         this.signinForm = this.formBuilder.group({
           username: ['', Validators.required],
           password: ['', Validators.required]
         });
 
-        this.authenticationService.logout();
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+       // this.authenticationService.logout();
+      //  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     get f() { return this.signinForm.controls; }
 
     onSubmit() {
+        this.submitted = true;
         if (this.signinForm.invalid) {
             return;
         }
+
+        console.log("dsdsd");
 
         this.authenticationService.sign_in(this.f.username.value, this.f.password.value)
             .pipe(first())
@@ -48,9 +51,10 @@ export class SignInComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
+                    console.log('dadsds');
                     this.error = error;
                 });
 
-        this.authenticationService.userLogged.next(true);    
+       // this.authenticationService.userLogged.next(true);    
     }
 }

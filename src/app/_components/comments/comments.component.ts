@@ -21,8 +21,9 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this.commentService.getAll(this.project, this.task)
         .subscribe( 
-          comments => 
+          comments => {
             this.comments = comments;
+          },
           errors => {
               this.ngFlashMessageService.showFlashMessage({
                     messages: [errors[0]],
@@ -51,8 +52,6 @@ export class CommentsComponent implements OnInit {
     }  
     
     console.log(options);
-   /// form.reset();
-
     this.commentService.create(this.project, this.task, options)
         .subscribe(comment => {
             this.task.numberOfComments++;

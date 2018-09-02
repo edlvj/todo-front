@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { PasswordValidation } from '../../_helpers';
 import { AuthenticationService } from '../../_services';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 @Component({
   selector: 'sign-up',
@@ -21,6 +22,7 @@ export class SignUpComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        private ngFlashMessageService: NgFlashMessageService,
         private authenticationService: AuthenticationService) {}
     
     ngOnInit() {
@@ -55,12 +57,32 @@ export class SignUpComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                  this.router.navigate(['/']);
+                  this.ngFlashMessageService.showFlashMessage({
+                    messages: ["<strong>Well done!</strong> You’re successfully registered!"], 
+                    dismissible: false, 
+                    timeout: 3000,
+                    type: 'success'
+                  });
+                  this.autoSignIn();
                 },
                 error => {
-                    this.error = error.message;
+                    this.error = error;
                 });
 
-    }    
+    }
+
+  private autoSignIn() {
+      this.authenticationService.sign_in(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate(['/']);
+                },
+                error => {
+                    this.error = error;
+                });
+
+      this.authenticationService.userLogged.next(true);    
+  }
 
 }  

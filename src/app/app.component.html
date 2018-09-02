@@ -1,18 +1,19 @@
 <div class="container">
   <div class="row" id="header">
     <div class="col-2">
-      <!-- <img src="/assets/logo.png"> --> 
+      <img src="/assets/logo.png">
     </div>
     <div class="col-8">
       <h3 class="text-center" id="header-title">Simple ToDo List</h3>
     </div>
     <div class="col-2">
-      <div class="text-center" style="padding: 15%;" *ngIf="logged">
+      <div class="text-center" id="logout-link" *ngIf="logged">
         <fa [name]="'sign-out fa-2x'"  [fw]=true id="logout" (click)="logOut();"></fa>
       </div>
     </div>
   </div>
 </div>
 <div class="container" id="content">
+    <ng-flash-message></ng-flash-message>
     <router-outlet></router-outlet>
 </div>
