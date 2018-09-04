@@ -56,7 +56,7 @@ export class ProjectsComponent implements OnInit {
         project.editable = true;
     }
 
-    updateStore(project: Project) {
+    updateStore(project: Project[]) {
       let allProjects = this.dataStore.store.getValue();
 
       let index = allProjects.data.indexOf(project);
@@ -70,10 +70,6 @@ export class ProjectsComponent implements OnInit {
         this.updateStore(p);
         project.editable = false;
       });
-    }
-
-    closeEditForm(project: Project){
-        project.editable = false;
     }
 
     openModal(template: TemplateRef<any>) {

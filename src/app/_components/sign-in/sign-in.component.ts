@@ -31,7 +31,7 @@ export class SignInComponent implements OnInit {
         });
 
        // this.authenticationService.logout();
-      //  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     get f() { return this.signinForm.controls; }
@@ -42,19 +42,16 @@ export class SignInComponent implements OnInit {
             return;
         }
 
-        console.log("dsdsd");
-
         this.authenticationService.sign_in(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    this.authenticationService.userLogged.next(true); 
                 },
                 error => {
-                    console.log('dadsds');
-                    this.error = error;
+                    console.log(error);
+                    this.error = error.error;
                 });
-
-       // this.authenticationService.userLogged.next(true);    
     }
 }

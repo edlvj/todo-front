@@ -1,7 +1,7 @@
-<form class="task-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+<form class="task-form" class="task-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
   <input type="text" (focus)="formButtons=true"  formControlName="title" placeholder='Enter task name' class="form-control" required>
-  <div *ngIf="formButtons">
+  <div *ngIf="formButtons" style="padding-top: 1%;">
     <button class="btn btn-success" type="submit" [disabled]="taskForm.invalid">Add task</button>
-    <a class="btn btn-secondary" (click)="taskForm.reset()">Cancel</a>
+    <a class="btn" (click)="taskForm.reset(); formButtons=false;">Cancel</a>
   </div>
 </form>

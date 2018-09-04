@@ -36,12 +36,14 @@ import { TaskItemComponent } from './_components/tasks/task-item';
 import { TaskEditFormComponent } from './_components/tasks/task-edit-form';
 import { CommentsComponent } from './_components/comments';
 import { CommentItemComponent } from './_components/comments/comment-item';
+import { CommonModule }       from '@angular/common';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     HttpClientModule,
     AppRouting,
     NgbModule.forRoot(),

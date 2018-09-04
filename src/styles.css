@@ -41,3 +41,26 @@ body {
 #logout {
     color: #83888e;
 }
+
+/*  project form */
+#project-form {
+  padding-top: 2%; 
+}
+
+/* projects */
+
+.panel  {
+    border: none;
+}
+
+/*.card {
+    border: none;
+}*/
+
+.panel-heading {
+    background-color: #fff; 
+}
+
+.task-form {
+    padding-top: 2%; 
+}

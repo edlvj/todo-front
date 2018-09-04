@@ -47,4 +47,9 @@ export class TaskItemComponent {
     this.task.attributes.done = completed;
     this.onComplete.emit(this.task);
   }
+
+  isDeadlineColor() {
+    let today = Date.now();
+    this.task.attributes.deadline > today;
+  }
 }

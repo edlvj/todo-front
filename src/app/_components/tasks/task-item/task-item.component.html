@@ -1,24 +1,25 @@
-
 <li *ngIf="!task.editable" class="list-group-item justify-content-between">
-  <div class="row">
-    <div class="col-10">
-      <div class="float-left task-toolbar task-toolbar-left" style="display: inline-grid;">
-        <fa [name]="'caret-up'" (click)="moveUp(task, index)" [size]=1></fa>
-        <fa [name]="'caret-down'" (click)="moveDown(task, index)" [size]=1></fa>
-      </div>
+    <div class="float-left task-toolbar task-toolbar-left" style="display: inline-grid;">
+      <fa [name]="'caret-up'" (click)="moveUp(task, index)" [size]=1></fa>
+      <fa [name]="'caret-down'" (click)="moveDown(task, index)" [size]=1></fa>
+    </div>
+
+    <div >
       <input type="checkbox" id="task-{{task.id}}" #completeCheckbox [checked]="task.attributes.done" (change)="completeTask(completeCheckbox.checked)" />
+    </div>
+    <div >  
       <span>{{ task.attributes.title }}</span>
+    </div>
+    <div>   
       <span *ngIf="task.attributes.deadline" > {{ task.attributes.deadline | date :  'dd/MM/y hh:mm' }}</span>
+    </div>  
+    
+    <div class="float-right task-toolbar float-right pull-right">
+      <fa [name]="'comment'" [size]=1 (click)="openModal(addCommentTemplate)" ></fa>
+      <fa [name]="'clock-o'" [size]=1 (click)="openModal(setDeadlineTemplate)"></fa>
+      <fa [name]="'pencil'" [size]=1 (click)="onEdit(task)"></fa>
+      <fa [name]="'trash'" [size]=1 (click)="openModal(deleteTemplate)"></fa>
     </div>
-    <div class="col-2">
-      <div class="float-right task-toolbar">
-        <fa [name]="'comment'" [size]=1 (click)="openModal(addCommentTemplate)" ></fa>
-        <fa [name]="'clock-o'" [size]=1 (click)="openModal(setDeadlineTemplate)"></fa>
-        <fa [name]="'pencil'" [size]=1 (click)="onEdit(task)"></fa>
-        <fa [name]="'trash'" [size]=1 (click)="openModal(deleteTemplate)"></fa>
-      </div>
-    </div>
-  </div>
 
   <ng-template #addCommentTemplate>
     <comments [project]=project [task]=task [modalRef]="modalRef"></comments>
@@ -42,7 +43,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" (click)="onUpdateDeadline.emit(task);modalRef.hide()" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+      <button type="button" class="btn" (click)="modalRef.hide()">Cancel</button>
     </div>
   </ng-template>
 
@@ -58,7 +59,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" (click)="onDelete.emit(task); modalRef.hide()" class="btn btn-primary">Delete</button>
-      <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+      <button type="button" class="btn" (click)="modalRef.hide()">Cancel</button>
     </div>
   </ng-template>
 </li>

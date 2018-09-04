@@ -13,9 +13,6 @@ export class AuthenticationService {
     sign_up(username: string, password: string) {
         return this.http.post<any>(`${environment.apiUrl}/users/sign_up`, { username, password })
             .pipe(map(user => {
-                if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
                 return user;
             }));
     }

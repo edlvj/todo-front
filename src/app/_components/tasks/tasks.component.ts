@@ -24,20 +24,6 @@ export class TasksComponent implements OnInit {
 
   constructor(private taskService: TaskService) {}
 
-  filterRelations(relations, included) {
-      var filtered = [];
-
-      for (let i = 0; i < relations.length; i++) {
-        for (let j = 0; j < included.length; j++) {
-          if((relations[i].id === included[j].id) && (relations[i].type === included[j].type)) {
-            filtered.push(included[j]);
-          } 
-        }
-      }
-      
-      return filtered;
-  }
-
   create(title: string) {
       this.taskService.create(this.project, title)
       .pipe(first())
@@ -98,6 +84,18 @@ export class TasksComponent implements OnInit {
   private commentsCount(task: Task){}
 
   private onCompleteMessage(){ }
-  
-  private sortTasks(task: Task, index: number, action: String){ }
+
+  private filterRelations(relations, included) {
+      var filtered = [];
+
+      for (let i = 0; i < relations.length; i++) {
+        for (let j = 0; j < included.length; j++) {
+          if((relations[i].id === included[j].id) && (relations[i].type === included[j].type)) {
+            filtered.push(included[j]);
+          } 
+        }
+      }
+      
+      return filtered;
+  }
 }

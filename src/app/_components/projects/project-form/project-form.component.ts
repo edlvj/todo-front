@@ -49,24 +49,16 @@ export class ProjectFormComponent implements OnInit {
             .subscribe(
                 project => {
                     this.addToStore(project);
-
-                    this.ngFlashMessageService.showFlashMessage({
-                        messages: ["<strong>Well done!</strong> You've successfully done all tasks."], 
-                        dismissible: true, 
-                        timeout: false,
-                        type: 'success'
-                    });
                 },
-                errors => {
-                    console.log(errors);
+                err => {
 
                 this.ngFlashMessageService.showFlashMessage({
-                    messages: [errors[0]], 
+                    messages: [err.errors[0]], 
                     dismissible: true, 
                     timeout: false,
                     type: 'danger'
                 });
-                	
+                this.projectForm.reset();
         });
     }
 }

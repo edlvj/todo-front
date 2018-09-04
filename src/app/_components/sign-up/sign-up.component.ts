@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -52,13 +52,14 @@ export class SignUpComponent implements OnInit {
         if (this.signupForm.invalid) {
             return;
         }
+        console.log("dads");
 
         this.authenticationService.sign_up(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
                 data => {
                   this.ngFlashMessageService.showFlashMessage({
-                    messages: ["<strong>Well done!</strong> You’re successfully registered!"], 
+                    messages: ["Well done! You’re successfully registered!"], 
                     dismissible: false, 
                     timeout: 3000,
                     type: 'success'
