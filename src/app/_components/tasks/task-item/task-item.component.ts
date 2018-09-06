@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   styleUrls: ['./task-item.component.sass']
 })
 
-export class TaskItemComponent {
+export class TaskItemComponent implements OnInit {
   @Input() project: Project;
   @Input() task: Task;
   @Input() index;
@@ -17,14 +17,14 @@ export class TaskItemComponent {
   @Output() onUpdateDeadline: EventEmitter<Task> = new EventEmitter();
   @Output() onComplete: EventEmitter<Task> = new EventEmitter();
   @Output() onMove: EventEmitter<any> = new EventEmitter();
-
   
   modalRef: BsModalRef;
-  temporaryDate: Date;
+  commentCount: number = 0;
 
-  constructor(private modalService: BsModalService) {
-    //calculate number of comments
-    //numberOfComments: number = 0;
+  constructor(private modalService: BsModalService) {}
+
+  ngOnInit() {
+    this.commentCount = this.task.relationships.comments.data.length;
   }
 
   openModal(template: TemplateRef<any>) {
@@ -48,8 +48,18 @@ export class TaskItemComponent {
     this.onComplete.emit(this.task);
   }
 
-  isDeadlineColor() {
-    let today = Date.now();
-    this.task.attributes.deadline > today;
+  updateDeadline(date: Date) {
+    this.task.attributes.deadline = date.toISOString();
+    this.onUpdateDeadline.emit(this.task);
+  }
+
+  updateCommentCount(count: number) {
+    this.commentCount = count;
+  }
+
+  isDeadlined() {
+    if(this.task.attributes.deadline) { 
+      return new Date(this.task.attributes.deadline) > new Date();
+    }
   }
 }

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Deadline</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseDeadlineModal(); modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <datetime [timepicker]="{
+    showMeridian: false,
+    showSeconds: false,
+    step: 60,
+    icon: 'fa fa-clock-o',
+    icons: { up: 'fa fa-chevron-up', down: 'fa fa-chevron-down' }
+    }" [datepicker]="{ icon: 'fa fa-calendar', autoclose: 'true' }" [(ngModel)]="deadlineDate"></datetime>
+</div>
+<div class="modal-footer">
+  <button type="button" (click)="updateDeadline.emit(deadlineDate);modalRef.hide()" class="btn btn-primary">Save</button>
+  <a class="btn" (click)="modalRef.hide()">Cancel</a>
+</div>

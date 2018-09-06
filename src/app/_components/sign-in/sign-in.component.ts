@@ -13,7 +13,6 @@ import { AuthenticationService } from '../../_services';
 
 export class SignInComponent implements OnInit {
     signinForm: FormGroup;
-    returnUrl: string;
     submitted = false;
     error = '';
 
@@ -29,9 +28,6 @@ export class SignInComponent implements OnInit {
           username: ['', Validators.required],
           password: ['', Validators.required]
         });
-
-       // this.authenticationService.logout();
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     get f() { return this.signinForm.controls; }
@@ -46,11 +42,10 @@ export class SignInComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['/']);
                     this.authenticationService.userLogged.next(true); 
                 },
                 error => {
-                    console.log(error);
                     this.error = error.error;
                 });
     }

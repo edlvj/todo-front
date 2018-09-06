@@ -1,6 +1,7 @@
 export class Task {
   id: number;
   editable: Boolean;
-  numberOfComments: number;
+  relationships: any;
   attributes: any;
+  data: any;
 }

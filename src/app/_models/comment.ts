@@ -3,4 +3,5 @@ export class Comment {
   title: string;  
   attachment:string;
   created_at: string;
+  data: any;
 }  

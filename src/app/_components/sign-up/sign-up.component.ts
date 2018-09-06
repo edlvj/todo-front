@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { PasswordValidation } from '../../_helpers';
+import { PasswordValidation } from '../../_validators';
 import { AuthenticationService } from '../../_services';
 import { NgFlashMessageService } from 'ng-flash-messages';
 
@@ -52,7 +52,6 @@ export class SignUpComponent implements OnInit {
         if (this.signupForm.invalid) {
             return;
         }
-        console.log("dads");
 
         this.authenticationService.sign_up(this.f.username.value, this.f.password.value)
             .pipe(first())
@@ -85,5 +84,4 @@ export class SignUpComponent implements OnInit {
 
       this.authenticationService.userLogged.next(true);    
   }
-
 }  

@@ -30,7 +30,6 @@ export class ProjectsComponent implements OnInit {
         });
 
         this.dataStore.store.subscribe(projects => {
-          console.log("updated", projects);
           this.projects = projects;
         });
     }

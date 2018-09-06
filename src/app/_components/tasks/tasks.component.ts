@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project, Task } from '../../_models';
 import { first } from 'rxjs/operators';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 import { TaskService } from '../../_services';
 
@@ -22,18 +23,20 @@ export class TasksComponent implements OnInit {
     this.tasks = this.filterRelations(relationships, this.included);
   }
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private ngFlashMessageService: NgFlashMessageService) {}
 
   create(title: string) {
       this.taskService.create(this.project, title)
-      .pipe(first())
-      .subscribe(
-          task => {
-              this.tasks.push(task.data);
-          },
-          errors => {
-              console.log(errors);
-          });
+        .pipe(first())
+        .subscribe(
+            task => {
+                this.tasks.push(task.data);
+            },
+            errors => {
+                console.log(errors);
+            });
   }
 
   delete(task: Task) {
@@ -59,6 +62,17 @@ export class TasksComponent implements OnInit {
   }
 
   updateStatus(task: Task) {
+      let allDone = this.tasks.every(task =>task.attributes.done == true);
+      
+      if(allDone) {
+        this.ngFlashMessageService.showFlashMessage({
+          messages: ["Well Done! You’re successfully completed all the task."], 
+          dismissible: false, 
+          timeout: 3000,
+          type: 'success'
+        });
+      }
+
       this.taskService.update(this.project, task, { done: task.attributes.done }).pipe(first()).subscribe(t => {
           let index = this.tasks.indexOf(task);
           this.tasks[index].attributes.done = task.attributes.done;
@@ -66,8 +80,8 @@ export class TasksComponent implements OnInit {
   }
 
   move(options: object) {
-    console.log(options['index']);
     let temp = this.tasks[options['new_index']];
+    
     if(typeof temp ==='undefined') {
       return;
     };
@@ -75,15 +89,11 @@ export class TasksComponent implements OnInit {
     this.tasks[options['new_index']] = this.tasks[options['index']];
     this.tasks[options['index']] = temp;
 
-    this.taskService.update(this.project, options['task'], { priority: options['new_index'], move_type: options['type'] }).pipe(first()).subscribe(t => {
-        console.log(t);
-       // this.tasks[options['new_index']].attributes.priority = t.attributes.priority;
-    });
+    this.taskService.update(this.project, this.tasks[options['index']], { move_type: options['type'] })
+        .pipe(first()).subscribe(t => {
+            this.tasks[options['new_index']].attributes.priority = t.attributes.priority;
+        });
   }
-
-  private commentsCount(task: Task){}
-
-  private onCompleteMessage(){ }
 
   private filterRelations(relations, included) {
       var filtered = [];

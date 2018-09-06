@@ -4,30 +4,33 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<form id="add-comment-form" (ngSubmit)="onSubmit(fileInput, commentForm)" #commentForm="ngForm">
-  <div class="modal-body">
-    <div class="form-group">
-      <textarea class="form-control form-control-lg" name='title' [(ngModel)]="text" minlength="10" maxlength="256" placeholder="Enter Your Comment" required autofocus></textarea>
-      <div id="upload-button" class="text-muted">
-        <span>{{ uploadFile }}</span>
-        <i class="fa fa-paperclip btn-file" aria-hidden="true">
-          <input id="paperclip-attachment" name="attachment" #fileInput type='file' accept="image/jpg, image/png">
-        </i>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6 offset-5">
-      <button type="button" class="btn btn-secondary float-right" (click)="modalRef.hide()">Cancel</button>
-    <button type="submit" class="btn btn-primary float-right" [disabled]="commentForm.form.invalid">Save</button>
-    </div>
-  </div>
-</form>
-<hr>
 <div class="modal-body">
-  <div class="comments" *ngIf="comments && comments.data">
-    <div *ngFor="let comment of comments.data" class="comment-item">
-      <comment-item [comment]="comment" ></comment-item>
-    </div>
+  <div class="warning">
+      <div *ngIf="f.title.touched  && f.title.errors">
+        <div *ngIf="f.title.errors.required">
+          <fa [name]="'exclamation-circle'" [fw]=true></fa> The title is required.
+        </div>
+
+        <div *ngIf="f.title.errors.maxlength || f.title.errors.minlength">
+           <fa [name]="'exclamation-circle'" [fw]=true></fa> Title must contain 10..255 length. 
+        </div>
+      </div>
   </div>
+
+  <form id="add-comment-form" (ngSubmit)="onSubmit()" [formGroup]="commentForm">
+      <div class="form-group">
+        <textarea class="form-control form-control-lg" formControlName="title" [(ngModel)]="text"  placeholder="Enter Your Comment" autofocus></textarea>
+        <img [src]="filePreview" style="width: 250px;">
+        <i class="fa fa-paperclip btn-file clinch" aria-hidden="true" ></i>
+        <input id="attachment" name="attachment" #fileInput (change)="previewFile(fileInput)" type='file' accept="image/jpg, image/png">
+        <div class="text-left" style="padding-top: 2%;">
+          <button type="submit" class="btn btn-primary" >Save</button>
+          <a class="btn" (click)="modalRef.hide()">Cancel</a>
+        </div>
+      </div>
+  </form>
+</div>
+
+<div class="modal-footer justify-content-start" style="display:block" *ngIf="comments && comments">
+    <comment-item  *ngFor="let comment of comments" [comment]="comment" (onDelete)="onDelete($event)" ></comment-item>
 </div>

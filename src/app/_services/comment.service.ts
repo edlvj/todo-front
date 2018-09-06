@@ -14,7 +14,11 @@ export class CommentService {
   }
 
   create(project, task, options) {
-      return this.http.post<Comment>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`, { comment: options })
+      const headers = new Headers({
+        'Content-Type': 'multipart/form-data'
+      });
+
+      return this.http.post<Comment>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`, options, headers)
           .pipe(map(comment => {
               return comment;
           })

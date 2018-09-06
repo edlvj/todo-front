@@ -1,14 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Comment } from '../../../_models';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'comment-item',
   templateUrl: './comment-item.component.html'
 })
 
-export class CommentItemComponent implements OnInit {
+export class CommentItemComponent {
   @Input() comment: Comment;
+  @Output() onDelete: EventEmitter<Comment> = new EventEmitter();
+  constructor() {}
 
-  constructor() { }
 
-  ngOnInit() {}
-}  
+  getFilePath(url: string) {
+    return `${environment.rootApi}${url}`;
+  }
+}
