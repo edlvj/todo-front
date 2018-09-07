@@ -19,7 +19,7 @@
 
   <form id="add-comment-form" (ngSubmit)="onSubmit()" [formGroup]="commentForm">
       <div class="form-group">
-        <textarea class="form-control form-control-lg" formControlName="title" [(ngModel)]="text"  placeholder="Enter Your Comment" autofocus></textarea>
+        <textarea class="form-control form-control-lg" formControlName="title" placeholder="Enter Your Comment" autofocus></textarea>
         <img [src]="filePreview" style="width: 250px;">
         <i class="fa fa-paperclip btn-file clinch" aria-hidden="true" ></i>
         <input id="attachment" name="attachment" #fileInput (change)="previewFile(fileInput)" type='file' accept="image/jpg, image/png">

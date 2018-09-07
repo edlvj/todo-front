@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000/api/v1',
-  rootApi: 'http://localhost:3000'
+  apiUrl: 'http://52.59.66.253/api/v1',
+  rootApi: 'http://52.59.66.253'
 };

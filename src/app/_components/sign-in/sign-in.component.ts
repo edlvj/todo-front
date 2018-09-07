@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../_services';
 export class SignInComponent implements OnInit {
     signinForm: FormGroup;
     submitted = false;
-    error = '';
+    error?: any;
 
     constructor(
       private formBuilder: FormBuilder,

@@ -1,5 +1,5 @@
-<div *ngIf="projects.data" id="accordion" role="tablist">
-  <div *ngFor="let project of projects.data" [class.card]="!project.editable">
+<div *ngIf="projects" id="accordion" role="tablist">
+  <div *ngFor="let project of projects" [class.card]="!project.editable">
     <accordion>
 
       <accordion-group *ngIf="!project.editable">
@@ -13,7 +13,7 @@
           </div>
 
           <div class="card-body">
-            <tasks [project]="project" [included]="projects.included"></tasks>
+            <tasks [project]="project" [included]="included"></tasks>
           </div>
       </accordion-group>
 

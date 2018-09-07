@@ -16,6 +16,7 @@ import { DataStore } from '../../_helpers'
 
 export class ProjectsComponent implements OnInit {
     projects: Project[] = [];
+    included: any;
     modalRef: BsModalRef;
 
     constructor(
@@ -30,7 +31,8 @@ export class ProjectsComponent implements OnInit {
         });
 
         this.dataStore.store.subscribe(projects => {
-          this.projects = projects;
+          this.projects = projects.data;
+          this.included = projects.included;
         });
     }
 
@@ -55,7 +57,7 @@ export class ProjectsComponent implements OnInit {
         project.editable = true;
     }
 
-    updateStore(project: Project[]) {
+    updateStore(project) {
       let allProjects = this.dataStore.store.getValue();
 
       let index = allProjects.data.indexOf(project);

@@ -9,7 +9,7 @@ export class ProjectService {
     constructor(private http: HttpClient) { }
  
     getAll() {
-        return this.http.get<Project[]>(`${environment.apiUrl}/projects`);
+        return this.http.get<any>(`${environment.apiUrl}/projects`);
     }
 
     create(title) {
@@ -27,7 +27,7 @@ export class ProjectService {
     }
 
     delete(id) {
-        return this.http.delete<Project[]>(`${environment.apiUrl}/projects/${id}`)
+        return this.http.delete<Project>(`${environment.apiUrl}/projects/${id}`)
             .pipe(map(project => {
                 return project;
             }));

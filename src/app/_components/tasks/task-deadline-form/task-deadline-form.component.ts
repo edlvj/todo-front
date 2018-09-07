@@ -12,7 +12,7 @@ export class TaskDeadlineFormComponent implements OnInit {
   @Input() modalRef: BsModalRef;
   @Output() updateDeadline: EventEmitter<Task> = new EventEmitter();
   
-  deadlineDate: Date = new Date();
+  deadlineDate: any = new Date();
   
   constructor() {}
 

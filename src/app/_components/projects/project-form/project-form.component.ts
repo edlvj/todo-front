@@ -58,7 +58,8 @@ export class ProjectFormComponent implements OnInit {
                     timeout: false,
                     type: 'danger'
                 });
-                this.projectForm.reset();
         });
+
+        this.projectForm.reset();
     }
 }

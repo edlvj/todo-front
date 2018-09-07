@@ -16,7 +16,7 @@ import { NgFlashMessageService } from 'ng-flash-messages';
 export class SignUpComponent implements OnInit {
     signupForm: FormGroup;
     submitted = false;
-    error = '';
+    error: any;
 
     constructor(
         private formBuilder: FormBuilder,
