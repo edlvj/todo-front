@@ -10,15 +10,11 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   getAll(project, task) {
-      return this.http.get<Comment[]>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`);
+      return this.http.get<any>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`);
   }
 
   create(project, task, options) {
-      const headers = new Headers({
-        'Content-Type': 'multipart/form-data'
-      });
-
-      return this.http.post<Comment>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`, options, headers)
+      return this.http.post<Comment>(`${environment.apiUrl}/projects/${project.id}/tasks/${task.id}/comments`, options)
           .pipe(map(comment => {
               return comment;
           })
