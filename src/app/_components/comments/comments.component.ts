@@ -71,7 +71,6 @@ export class CommentsComponent implements OnInit {
 
   previewFile(el) {
     var reader = new FileReader();
-    var temp = '';
     reader.onload = (event: ProgressEvent) => {
       this.filePreview = reader.result;
     }

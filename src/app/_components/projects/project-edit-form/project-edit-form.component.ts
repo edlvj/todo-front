@@ -12,14 +12,12 @@ export class ProjectEditFormComponent implements OnInit {
   projectEditForm: FormGroup;
   @Input() project: Project;
   @Output() edit: EventEmitter<Project> = new EventEmitter();
-  temporaryProjectTitle: String;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(){
-    this.temporaryProjectTitle = this.project.attributes.title;
     this.projectEditForm = this.formBuilder.group({
-        title: [this.temporaryProjectTitle, Validators.required]
+        title: [this.project.attributes.title, Validators.required]
     });
   }
 
