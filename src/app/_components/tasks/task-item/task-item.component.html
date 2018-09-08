@@ -1,0 +1,48 @@
+<li *ngIf="!task.editable" class="list-group-item d-flex flex-row">
+    <div class="float-left task-toolbar task-toolbar-left p-1" style="display: inline-grid;">
+      <fa [name]="'caret-up'" (click)="moveUp(task, index)" [size]=1></fa>
+      <fa [name]="'caret-down'" (click)="moveDown(task, index)" [size]=1></fa>
+    </div>
+
+    <div class="pull-right p-2">
+      <input type="checkbox" id="task-{{task.id}}" #completeCheckbox [checked]="task.attributes.done" (change)="completeTask(completeCheckbox.checked)" />
+    </div>
+    <div class="p-2">  
+      <span [class.checked]="task.attributes.done" >{{ task.attributes.title }}</span>
+    </div>
+    <div class="p-1" *ngIf="task.attributes.deadline">   
+      <span [ngClass]="{red: !isDeadlined(), green: isDeadlined()}" > {{ task.attributes.deadline | date :  'dd/MM/y hh:mm' }}</span>
+    </div>  
+    
+    <div class="p-2 ml-auto">
+      <p style="display: inline;" *ngIf="commentCount >= 1" > {{ commentCount }}</p>
+      <fa [name]="'comment'" [size]=1 (click)="openModal(addCommentTemplate)" ></fa>
+      <fa [name]="'clock-o'" [size]=1 (click)="openModal(setDeadlineTemplate)"></fa>
+      <fa [name]="'pencil'" [size]=1 (click)="onEdit(task)"></fa>
+      <fa [name]="'trash'" [size]=1 (click)="openModal(deleteTemplate)"></fa>
+    </div>
+
+    <ng-template #addCommentTemplate>
+      <comments [project]=project [task]=task [commentCount]=commentCount [modalRef]="modalRef" (updateCommentCount)="updateCommentCount($event)"></comments>
+    </ng-template>
+
+    <ng-template #setDeadlineTemplate>
+      <task-deadline-form [task]=task [modalRef]="modalRef" (updateDeadline)="updateDeadline($event)"></task-deadline-form>
+    </ng-template>
+
+    <ng-template #deleteTemplate>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete task</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete "{{task.attributes.title}}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDelete.emit(task); modalRef.hide()" class="btn btn-primary">Delete</button>
+        <a class="btn" (click)="modalRef.hide()">Cancel</a>
+      </div>
+    </ng-template>
+</li>

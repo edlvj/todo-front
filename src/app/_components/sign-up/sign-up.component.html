@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12  col-md-4 offset-sm-4" id="form-content">
+        <div id="pre-form">
+          <h3 class="text-left title"> Sign Up</h3>
+        </div>
+        <div class="warning">
+            <div *ngIf="error && error.username">
+               <fa [name]="'exclamation-circle'" [fw]=true></fa> {{ error.username }}
+            </div>
+
+            <div *ngIf="(f.username.touched || submitted) && f.username.errors">
+                <div *ngIf="f.username.errors.required">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> The field is required.
+                </div>
+
+                <div *ngIf="f.username.errors.minlength">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> Username is too short. Minimum 3 characters.
+                </div>
+
+                <div *ngIf="f.username.errors.maxlength">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> Username is too long. Maximum 50 characters.
+                </div>
+            </div>
+
+            <div *ngIf="(f.password.touched || submitted) && f.password.errors">
+                <div *ngIf="f.password.errors.required || f.password.errors.pattern || f.password.errors.minlength">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> Password does not meet minimal requirements. 
+                  The length should be 8 characters, alphanumeric.
+                </div>
+            </div>
+
+            <div *ngIf="(f.password_confirmation.touched || submitted) && f.password_confirmation.errors">
+               <div *ngIf="f.password_confirmation.errors.MatchPassword">
+                  <fa [name]="'exclamation-circle'" [fw]=true></fa> Password and Confirm password fields doesn’t match.
+                </div>
+            </div>
+        </div>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" >
+            <div class="form-group">
+              <input type="text" 
+              required
+              minlength="3"
+              formControlName="username" class="form-control" placeholder="User name" [ngClass]="{ 'is-invalid': (f.username.touched || submitted) && f.username.errors }"/>
+            </div>
+
+            <div class="form-group">
+              <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <input id="password_confirmation" type="password" formControlName="password_confirmation" class="form-control" placeholder="Confirm password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+        <p><small>Already a member? <a routerLink="/sign-in">Sign In</a></small></p>  
+        </div>
+    </div>
+</div>

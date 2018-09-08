@@ -1,0 +1,14 @@
+<div class="d-flex flex-row">
+<div class="">
+    <p class="text-left" style=" color: #a0a0a0; display: inline;">
+        {{ comment.attributes.created_at | date: 'dd/MM/y' }}
+    </p>
+    <fa (click)="onDelete.emit(comment);" [name]="'trash'" class="text-muted" [size]=1 ></fa>
+  <div >
+    <p> 
+      {{ comment.attributes.title }}
+    </p>
+     <img *ngIf="comment.attributes.attachment" src="{{ getFilePath(comment.attributes.attachment) }}" style="width: 250px;">
+  </div>
+ </div> 
+</div>  

@@ -1,0 +1,42 @@
+<div *ngIf="projects" id="accordion" role="tablist">
+  <div *ngFor="let project of projects" [class.card]="!project.editable">
+    <accordion>
+
+      <accordion-group *ngIf="!project.editable">
+          <div accordion-heading >
+            <div  class="project-panel" class="pull-left float-left">{{project.attributes.title}}</div>
+           
+            <div class="project-toolbar float-right pull-right" >
+                <fa [name]="'pencil'" (click)="onEdit(project);" [size]=1></fa>
+                <fa [name]="'trash'" (click)="openModal(deleteProjectTemplate);" [size]=1></fa>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <tasks [project]="project" [included]="included"></tasks>
+          </div>
+      </accordion-group>
+
+      <ng-template #deleteProjectTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Delete project</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Do you really want to delete "{{project.attributes.title}}"?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="onDelete(project); modalRef.hide()" class="btn btn-primary">Delete</button>
+          <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+        </div>
+      </ng-template>
+
+      <div *ngIf="project.editable">
+        <project-edit-form (edit)="onEditSubmit($event)" [project]="project"></project-edit-form>
+      </div>
+
+    </accordion>
+  </div>
+</div>    

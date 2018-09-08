@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12  col-md-4 offset-sm-4" id="form-content">
+      <div id="pre-form">
+          <h3 class="text-left title"> Sign In</h3>
+      </div>
+      <div class="warning">
+          <div *ngIf="error && error.user">
+              <fa [name]="'exclamation-circle'" [fw]=true></fa> {{ error.user }}
+          </div>
+
+          <div *ngIf="(f.username.touched || submitted) && f.username.errors">
+            <div *ngIf="f.username.errors.required">
+              <fa [name]="'exclamation-circle'" [fw]=true></fa> The username is required.
+            </div>
+          </div>
+
+          <div *ngIf="(f.password.touched || submitted) && f.password.errors">
+            <div *ngIf="f.password.errors.required">
+              <fa [name]="'exclamation-circle'" [fw]=true></fa> The password is required.
+            </div>
+          </div>  
+      </div>    
+
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="User name" />
+        </div>
+
+        <div class="form-group">
+          <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+      <p><small>Dont't have an account? <a routerLink="/sign-up">Sign Up</a></small></p>
+    </div>
+  </div>   
+</div>  
